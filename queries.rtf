@@ -1,0 +1,1028 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red128\green128\blue128;\red128\green0\blue0;\red0\green0\blue128;
+\red0\green128\blue0;\red0\green0\blue255;}
+{\*\expandedcolortbl;;\csgenericrgb\c50196\c50196\c50196;\csgenericrgb\c50196\c0\c0;\csgenericrgb\c0\c0\c50196;
+\csgenericrgb\c0\c50196\c0;\csgenericrgb\c0\c0\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww17280\viewh13200\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 --ZADATAK 2\cf0 \
+\cf2 -- broj nekretnina za prodaju, broj nekretnina za iznajmljivanje\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 select
+\f0\b0 \cf0  offer, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*)\
+
+\f1\b \cf3 from
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  offer\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 -- broj nekretnina za prodaju u gradovima\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 select
+\f0\b0 \cf0  city, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*)\
+
+\f1\b \cf3 from
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0 \
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  city\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 -- broj uknjizenih i neuknjizenih kuca i stanova\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  (
+\f1\b \cf3 CASE
+\f0\b0 \cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  registration 
+\f1\b \cf3 IS
+\f0\b0 \cf0  
+\f1\b \cf3 true
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%stan%'\cf0  
+\f1\b \cf3 THEN
+\f0\b0 \cf0  \cf5 'Uknjizeni stanovi'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  registration 
+\f1\b \cf3 IS
+\f0\b0 \cf0  
+\f1\b \cf3 false
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%stan%'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Neuknjizeni stanovi'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  registration 
+\f1\b \cf3 IS
+\f0\b0 \cf0  
+\f1\b \cf3 true
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%ku\uc0\u263 a%'\cf0  
+\f1\b \cf3 THEN
+\f0\b0 \cf0  \cf5 'Uknjizene kuce'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  registration 
+\f1\b \cf3 IS
+\f0\b0 \cf0  
+\f1\b \cf3 false
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%ku\uc0\u263 a%'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Neuknjizene kuce'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  registration 
+\f1\b \cf3 IS
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%ku\uc0\u263 a%'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nepoznata uknjizenost kuca'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  registration 
+\f1\b \cf3 IS
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%stan%'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nepoznata uknjizenost stanova'\cf0 \
+
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  Uknjizenost, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) \
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  registration, type_of_estate \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --top 30 najskupljih stanova i kuca\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 WITH
+\f0\b0 \cf0  top_thirty 
+\f1\b \cf3 AS
+\f0\b0 \cf0  (\
+    
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  *, 
+\f1\b \cf4 ROW_NUMBER
+\f0\b0 \cf0 () \
+    
+\f1\b \cf3 over
+\f0\b0 \cf0  (\
+        
+\f1\b \cf3 PARTITION
+\f0\b0 \cf0  
+\f1\b \cf3 BY
+\f0\b0 \cf0  type_of_estate\
+        
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  price 
+\f1\b \cf3 desc
+\f0\b0 \cf0 \
+    ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  RowNo \
+    
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+    
+\f1\b \cf3 where
+\f0\b0 \cf0  price 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  state 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Srbija'\cf0 \
+)\
+\
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  * \
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  top_thirty \
+
+\f1\b \cf3 WHERE
+\f0\b0 \cf0  RowNo <= \cf6 30\cf0  \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --top 100 najvecih stanova i kuca\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 WITH
+\f0\b0 \cf0  top_hundred 
+\f1\b \cf3 AS
+\f0\b0 \cf0  (\
+    
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  *, 
+\f1\b \cf4 ROW_NUMBER
+\f0\b0 \cf0 () \
+    
+\f1\b \cf3 over
+\f0\b0 \cf0  (\
+        
+\f1\b \cf3 PARTITION
+\f0\b0 \cf0  
+\f1\b \cf3 BY
+\f0\b0 \cf0  type_of_estate\
+        
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 desc
+\f0\b0 \cf0 \
+    ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  RowNo \
+    
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+)\
+\
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  * \
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  top_hundred \
+
+\f1\b \cf3 WHERE
+\f0\b0 \cf0  RowNo <= \cf6 100\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --lista svih nekretnina izgradjenih u 2020. godini\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 select
+\f0\b0 \cf0  *\
+
+\f1\b \cf3 from
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  construction_year = \cf6 2020\cf0 \
+
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  price 
+\f1\b \cf3 desc
+\f0\b0 \cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --top 30 sa najvise soba, najveca kvadratura -> stanovi, najveca povrsina zemljista -> kuce\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 select
+\f0\b0 \cf0  *\
+
+\f1\b \cf3 from
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  rooms 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0 \
+
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  rooms 
+\f1\b \cf3 desc
+\f0\b0 \cf0 , (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 '%stan%'\cf0  
+\f1\b \cf3 THEN
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 ELSE
+\f0\b0 \cf0  land_area 
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 desc
+\f0\b0 \cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --ZADATAK 3\cf0 \
+\
+\cf2 --deset najzastupljenijih delova grada Beograda sa najvecim brojem nekretnina u ponudi\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  city_part, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*)\
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  city_part 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0 \
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  city_part \
+
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) 
+\f1\b \cf3 desc
+\f0\b0 \cf0 \
+
+\f1\b \cf3 limit
+\f0\b0 \cf0  \cf6 10\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --broj stanova za prodaju prema kvadraturi\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  (
+\f1\b \cf3 CASE
+\f0\b0 \cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage < \cf6 35\cf0  
+\f1\b \cf3 THEN
+\f0\b0 \cf0  \cf5 'Mali stanovi'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 36\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 50\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Stanovi izmedju 36-50'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 51\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 65\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Stanovi izmedju 51-65'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 66\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 80\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Stanovi izmedju 66-80'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 81\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 95\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Stanovi izmedju 81-95'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 96\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 110\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Stanovi izmedju 96-110'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  square_footage > \cf6 111\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Stanovi veci od 111'\cf0 \
+    
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf5 'Nefinisano'\cf0 \
+
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  Velicina_Stana, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) \
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  type_of_estate 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'stan'\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  state 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Srbija'
+\f1\b \cf3 and
+\f0\b0 \cf0  square_footage 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0 \
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  Velicina_Stana\
+
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  Velicina_Stana\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --broj izgradjenih nekretnina po dekadama \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  (
+\f1\b \cf3 CASE
+\f0\b0 \cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 1951\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 1960\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 1951-1960'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 1961\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 1970\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 1961-1970'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 1971\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 1980\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 1971-1980'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 1981\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 1990\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 1981-1990'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 1991\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 2000\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 1991-2000'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 2001\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 2010\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 2001-2010'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 2011\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 2020\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Nekretnine izgradjene izmedju 2011-2020'\cf0 \
+
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  godina_izgradnje, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) \
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  construction_year 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 1951\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 2020\cf0 \
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  godina_izgradnje\
+
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  godina_izgradnje\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --broj i procentualni odnos nekretnina koje se prodaju i nekretnina koje se iznajmljuju\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 WITH
+\f0\b0 \cf0  top_five 
+\f1\b \cf3 AS
+\f0\b0 \cf0  (\
+    
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  city, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*)\
+	
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+	
+\f1\b \cf3 where
+\f0\b0 \cf0  city 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  offer 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0 \
+	
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  city \
+	
+\f1\b \cf3 order
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) 
+\f1\b \cf3 desc
+\f0\b0 \cf0 \
+	
+\f1\b \cf3 limit
+\f0\b0 \cf0  \cf6 5\cf0 \
+\
+)\
+\
+\
+
+\f1\b \cf3 select
+\f0\b0 \cf0  b.city, \
+		
+\f1\b \cf4 count
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  sales, \
+		
+\f1\b \cf4 count
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Izdavanje'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  rent, \
+		\cf6 100\cf0  * 
+\f1\b \cf4 avg
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1.0\cf0  
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf6 0\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  proc\
+
+\f1\b \cf3 from
+\f0\b0 \cf0  buildings b\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  b.city 
+\f1\b \cf3 in
+\f0\b0 \cf0  (
+\f1\b \cf3 select
+\f0\b0 \cf0  city 
+\f1\b \cf3 from
+\f0\b0 \cf0  top_five) 
+\f1\b \cf3 and
+\f0\b0 \cf0  b.offer 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0 \
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  b.city \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --broj za prodaju i procentualno, cenovni opseg\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  
+\f1\b \cf4 sum
+\f0\b0 \cf0 (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price < \cf6 49999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  lowest_price,\
+		
+\f1\b \cf4 avg
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  price < \cf6 49999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1.0\cf0  
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf6 0\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  proc_lowest,\
+    	
+\f1\b \cf4 sum
+\f0\b0 \cf0 (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 50000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 99999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  price_50000_99999,\
+    	
+\f1\b \cf4 avg
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 50000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 99999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1.0\cf0  
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf6 0\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  proc_50000_99999,\
+    	
+\f1\b \cf4 sum
+\f0\b0 \cf0 (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 100000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 149999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  price_100000_149999,\
+    	
+\f1\b \cf4 avg
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 100000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 149999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1.0\cf0  
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf6 0\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  proc_100000_149999,\
+    	
+\f1\b \cf4 sum
+\f0\b0 \cf0 (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 150000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 199999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  price_150000_199999,\
+    	
+\f1\b \cf4 avg
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 150000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 199999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1.0\cf0  
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf6 0\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  proc_150000_199999,\
+    	
+\f1\b \cf4 sum
+\f0\b0 \cf0 (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price >= \cf6 200000\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  highest_price,\
+    	
+\f1\b \cf4 avg
+\f0\b0 \cf0 (
+\f1\b \cf3 case
+\f0\b0 \cf0  
+\f1\b \cf3 when
+\f0\b0 \cf0  price >= \cf6 200000\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1.0\cf0  
+\f1\b \cf3 else
+\f0\b0 \cf0  \cf6 0\cf0  
+\f1\b \cf3 end
+\f0\b0 \cf0 ) 
+\f1\b \cf3 AS
+\f0\b0 \cf0  proc_highest\
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  price 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0 \
+\
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  \
+(
+\f1\b \cf3 CASE
+\f0\b0 \cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price < \cf6 49999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Najmanja cena'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 50000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 99999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Cena izmedju 50000 i 99999'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 100000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 149999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Cena izmedju 100000 i 149999'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price 
+\f1\b \cf3 between
+\f0\b0 \cf0  \cf6 150000\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  \cf6 199999\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Cena izmedju 150000 i 199999'\cf0 \
+    
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  price >= \cf6 200000\cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf5 'Cena veca od 200000'\cf0 \
+
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  cena, 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*), 
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) * \cf6 100.0\cf0  / (
+\f1\b \cf3 select
+\f0\b0 \cf0  
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) 
+\f1\b \cf3 from
+\f0\b0 \cf0  buildings 
+\f1\b \cf3 where
+\f0\b0 \cf0  price 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  percentage\
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  price 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 not
+\f0\b0 \cf0  
+\f1\b \cf3 null
+\f0\b0 \cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0 \
+
+\f1\b \cf3 group
+\f0\b0 \cf0  
+\f1\b \cf3 by
+\f0\b0 \cf0  cena\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 --broj za prodaju koje imaju parking u odnosu na ukupan broj za prodaju\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf3 SELECT
+\f0\b0 \cf0  
+\f1\b \cf4 sum
+\f0\b0 \cf0 (
+\f1\b \cf3 CASE
+\f0\b0 \cf0  
+\f1\b \cf3 WHEN
+\f0\b0 \cf0  parking 
+\f1\b \cf3 is
+\f0\b0 \cf0  
+\f1\b \cf3 true
+\f0\b0 \cf0  
+\f1\b \cf3 then
+\f0\b0 \cf0  \cf6 1\cf0  
+\f1\b \cf3 END
+\f0\b0 \cf0 ) 
+\f1\b \cf3 as
+\f0\b0 \cf0  has_parking,\
+		
+\f1\b \cf4 count
+\f0\b0 \cf0 (*) 
+\f1\b \cf3 as
+\f0\b0 \cf0  all_estates\
+
+\f1\b \cf3 FROM
+\f0\b0 \cf0  buildings\
+
+\f1\b \cf3 where
+\f0\b0 \cf0  city 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Beograd'\cf0  
+\f1\b \cf3 and
+\f0\b0 \cf0  offer 
+\f1\b \cf3 ilike
+\f0\b0 \cf0  \cf5 'Prodaja'\cf0 \
+\
+\
+}
